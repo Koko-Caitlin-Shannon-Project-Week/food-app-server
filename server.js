@@ -14,6 +14,12 @@ const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', err => console.error(err));
 
+app.get('/api/v1/users', (req, res) => {
+  client.query('SELECT * FROM users')
+  .then(results => res.send(results.rows))
+  .catch(console.error);
+});
+
 app.use(cors());
 
 app.get('*', (req, res) => res.redirect(CLIENT_URL));
