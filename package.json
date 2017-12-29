@@ -1,0 +1,25 @@
+{
+  "name": "food-app-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Koko-Caitlin-Shannon-Project-Week/food-app-server.git"
+  },
+  "author": "Koko Caitlin Shannon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Koko-Caitlin-Shannon-Project-Week/food-app-server/issues"
+  },
+  "homepage": "https://github.com/Koko-Caitlin-Shannon-Project-Week/food-app-server#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "pg": "^7.4.0"
+  }
+}
