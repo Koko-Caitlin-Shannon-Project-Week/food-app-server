@@ -21,8 +21,8 @@ app.get('/api/v1/users', (req, res) => {
   .catch(console.error);
 });
 
-app.get('api/v1/recipes', (req,res) => {
-  client.query(`SELECT * FROM recipe WHERE user_id = 1;`)
+app.get('api/v1/recipes/:id', (req,res) => {
+  client.query(`SELECT * FROM recipe WHERE user_id = ${req.params.id};`)
   .then (results => res.send(results.rows))
   .catch (console.error);
 });
