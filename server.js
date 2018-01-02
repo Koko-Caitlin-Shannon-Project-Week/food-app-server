@@ -8,8 +8,11 @@ const bodyParser = require('body-parser').urlencoded({extended: true});
 const app = express();
 const PORT = process.env.PORT;
 const CLIENT_URL = process.env.CLIENT_URL;
+const TOKEN = process.env.TOKEN;
 
 app.use(cors());
+
+app.get('/api/v1/users', (req, res) => res.send(TOKEN === parseInt(req.query.token)))
 
 const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
