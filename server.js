@@ -21,6 +21,13 @@ app.get('/api/v1/users', (req, res) => {
   .catch(console.error);
 });
 
+app.post('/api/v1/users', bodyParser, (req, res) => {
+  let (username, password) = req.body;
+  client.query(`INSERT INTO users(username, password) VALUES($1, $2)`,
+  [username, password])
+  .then(results => res.sendStatus(201));
+});
+
 app.get('api/v1/recipes/:id', (req,res) => {
   client.query(`SELECT * FROM recipe WHERE user_id = ${req.params.id};`)
   .then (results => res.send(results.rows))
