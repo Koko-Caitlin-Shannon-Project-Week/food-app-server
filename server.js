@@ -41,8 +41,10 @@ app.get('/api/v1/recipes/:id', (req,res) => {
 
 app.get('/api/v1/recipes/find/:day_id', (req,res) =>{
   superagent.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/228234/analyzedInstructions?stepBreakdown=true`)
-  .set('X-Mashape-Key', 'API_KEY').set('Accept', 'application/json')
-  .then(res => send(res));
+  .set('X-Mashape-Key', 'API_KEY')
+  .set('Accept', 'application/json')
+  .then(res => send(res))
+  .catch(res => console.error(res));
 
 })
 
