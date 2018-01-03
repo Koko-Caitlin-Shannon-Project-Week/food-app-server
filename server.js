@@ -29,7 +29,7 @@ app.post('/api/v1/users', bodyParser, (req, res) => {
 });
 
 app.get('api/v1/recipes/:id', (req,res) => {
-  client.query(`SELECT * FROM recipe WHERE user_id = ${req.params.id};`)
+  client.query(`SELECT * FROM recipes WHERE user_id = ${req.params.id};`)
   .then (results => res.send(results.rows))
   .catch (console.error);
 });
