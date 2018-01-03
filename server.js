@@ -36,15 +36,19 @@ app.get('/api/v1/recipes/:id', (req,res) => {
   .then (results => res.send(results.rows))
   .catch (console.error);
 
-  
+
 });
 
 app.get('/api/v1/recipes/find/:day_id', (req,res) =>{
-  superagent.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${req.params.day_id}/analyzedInstructions?stepBreakdown=true`).set('X-Mashape-Key', 'API_KEY').set('Accept', 'application/json').then(res => console.log(res.body))
+  superagent.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/228234/analyzedInstructions?stepBreakdown=true`)
+  .set('X-Mashape-Key', 'API_KEY')
+  .set('Accept', 'application/json')
+  .then(res => send(res))
+  .catch(res => console.error(res));
 
 })
 
-app.get('*', (req, res) => res.redirect(CLIENT_URL));
+//app.get('*', (req, res) => res.redirect(CLIENT_URL));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/324694/analyzedInstructions?stepBreakdown=true")
