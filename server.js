@@ -31,6 +31,10 @@ app.post('/api/v1/users', bodyParser, (req, res) => {
   [username, password])
   .then(results => res.sendStatus(201));
 });
+app.get('/api/v1/recipes/search', (req, res) =>{
+  superagent.get(`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=3&calories=gte%20591,%20lte%20722&health=alcohol-free`)
+  .then (res => console.log(res))
+});
 
 app.get('/api/v1/recipes/:id', (req,res) => {
   client.query(`SELECT * FROM recipes WHERE user_id = ${req.params.id};`)
@@ -40,10 +44,6 @@ app.get('/api/v1/recipes/:id', (req,res) => {
 
 });
 
-app.get('/api/v1/recipes/search', (req, res) =>{
-  superagent.get(`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=3&calories=gte%20591,%20lte%20722&health=alcohol-free`)
-  .then (res => console.log(res))
-});
 
 // app.get('/api/v1/recipes/find/:day_id', (req,res) =>{
 //   superagent.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/228234/analyzedInstructions?stepBreakdown=true`)
