@@ -4,6 +4,8 @@ const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
 const bodyParser = require('body-parser').urlencoded({extended: true});
+const superagent = require('superagent');
+const API_KEY = process.env.API_KEY;
 
 const app = express();
 const PORT = process.env.PORT;
@@ -21,6 +23,11 @@ app.get('/api/v1/users', (req, res) => {
   .catch(console.error);
 });
 
+app.get('/api/v1/recipes/find', (req,res) =>{
+  superagent.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${req.body.day_id}/analyzedInstructions?stepBreakdown=true`).set('X-Mashape-Key', 'API_KEY').set('Accept', 'application/json').then(res => console.log(res.body))
+
+})
+
 app.post('/api/v1/users', bodyParser, (req, res) => {
   let {username, password} = req.body;
   client.query(`INSERT INTO users(username, password) VALUES($1, $2)`,
@@ -37,3 +44,10 @@ app.get('api/v1/recipes/:id', (req,res) => {
 
 app.get('*', (req, res) => res.redirect(CLIENT_URL));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
+
+// unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/324694/analyzedInstructions?stepBreakdown=true")
+// .header("X-Mashape-Key", "")
+// .header("Accept", "application/json")
+// .end(function (result) {
+//   console.log(result.status, result.headers, result.body);
+// });
