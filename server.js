@@ -23,10 +23,6 @@ app.get('/api/v1/users', (req, res) => {
   .catch(console.error);
 });
 
-app.get('/api/v1/recipes/find/:day_id', (req,res) =>{
-  superagent.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${req.params.day_id}/analyzedInstructions?stepBreakdown=true`).set('X-Mashape-Key', 'API_KEY').set('Accept', 'application/json').then(res => console.log(res.body))
-
-})
 
 app.post('/api/v1/users', bodyParser, (req, res) => {
   let {username, password} = req.body;
@@ -41,6 +37,10 @@ app.get('api/v1/recipes/:id', (req,res) => {
   .catch (console.error);
 });
 
+app.get('/api/v1/recipes/find/:day_id', (req,res) =>{
+  superagent.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${req.params.day_id}/analyzedInstructions?stepBreakdown=true`).set('X-Mashape-Key', 'API_KEY').set('Accept', 'application/json').then(res => console.log(res.body))
+
+})
 
 app.get('*', (req, res) => res.redirect(CLIENT_URL));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
