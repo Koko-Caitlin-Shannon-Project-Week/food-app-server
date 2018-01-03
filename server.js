@@ -33,8 +33,8 @@ app.post('/api/v1/users', bodyParser, (req, res) => {
 });
 app.get('/api/v1/recipes/search', (req, res) =>{
   superagent.get(`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`)
-  .then (res => console.log(res))
-});
+})
+.then (res => send(res));
 
 app.get('/api/v1/recipes/:id', (req,res) => {
   client.query(`SELECT * FROM recipes WHERE user_id = ${req.params.id};`)
