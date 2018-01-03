@@ -42,7 +42,7 @@ app.get('/api/v1/recipes/:id', (req,res) => {
 
 app.get('/api/v1/recipes/search', (req, res) =>{
   superagent.get(`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`)
-  .then (res => send (res))
+  .then (res => console.log(res))
 });
 
 // app.get('/api/v1/recipes/find/:day_id', (req,res) =>{
