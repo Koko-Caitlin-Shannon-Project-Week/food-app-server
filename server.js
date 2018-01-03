@@ -31,10 +31,12 @@ app.post('/api/v1/users', bodyParser, (req, res) => {
   .then(results => res.sendStatus(201));
 });
 
-app.get('api/v1/recipes/:id', (req,res) => {
+app.get('/api/v1/recipes/:id', (req,res) => {
   client.query(`SELECT * FROM recipes WHERE user_id = ${req.params.id};`)
-  .then (results => res.send(results.rows))
+  .then (results => res.send(results))
   .catch (console.error);
+
+  
 });
 
 app.get('/api/v1/recipes/find/:day_id', (req,res) =>{
@@ -42,7 +44,7 @@ app.get('/api/v1/recipes/find/:day_id', (req,res) =>{
 
 })
 
-app.get('*', (req, res) => res.redirect(CLIENT_URL));
+// app.get('*', (req, res) => res.redirect(CLIENT_URL));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/324694/analyzedInstructions?stepBreakdown=true")
