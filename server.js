@@ -5,7 +5,8 @@ const cors = require('cors');
 const pg = require('pg');
 const bodyParser = require('body-parser').urlencoded({extended: true});
 const superagent = require('superagent');
-const API_KEY = process.env.API_KEY;
+const APP_KEY = process.env.APP_KEY;
+const APP_ID = process.env.APP_ID;
 
 const app = express();
 const PORT = process.env.PORT;
@@ -39,14 +40,19 @@ app.get('/api/v1/recipes/:id', (req,res) => {
 
 });
 
-app.get('/api/v1/recipes/find/:day_id', (req,res) =>{
-  superagent.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/228234/analyzedInstructions?stepBreakdown=true`)
-  .set('X-Mashape-Key', 'API_KEY')
-  .set('Accept', 'application/json')
-  .then(res => send(res))
-  .catch(res => console.error(res));
+app.get('/api/v1/recipes/search', (req, res) =>{
+  superagent.get(`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`)
+  .then (res => send (res))
+});
 
-})
+// app.get('/api/v1/recipes/find/:day_id', (req,res) =>{
+//   superagent.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/228234/analyzedInstructions?stepBreakdown=true`)
+//   .set('X-Mashape-Key', 'API_KEY')
+//   .set('Accept', 'application/json')
+//   .then(res => send(res))
+//   .catch(res => console.error(res));
+
+// })
 
 //app.get('*', (req, res) => res.redirect(CLIENT_URL));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
