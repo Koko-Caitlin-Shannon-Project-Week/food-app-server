@@ -27,12 +27,40 @@ app.get('/api/v1/users', (req, res) => {
 });
 
 
+// app.post('/api/v1/users', (req, res) => {
+//   let {username, password, id} = req.body;
+//   client.query(`INSERT INTO users(username, password) VALUES($1, $2); INSERT INTO recipes(user_id) VALUES($3);`,
+//   [username, password, id])
+//   .then(results => res.sendStatus(201));
+// });
 app.post('/api/v1/users', (req, res) => {
-  let {username, password} = req.body;
-  client.query(`INSERT INTO users(username, password) VALUES($1, $2)`,
-  [username, password])
-  .then(results => res.sendStatus(201));
+  client.query(
+    `INSERT INTO users(username, password) VALUES($1, $2);`,
+    [req.body.username, req.body.password],
+    function() {
+      queryTwo();
+    }
+  );
+
+  function queryTwo() {
+    client.query(
+      `SELECT user_id FROM users WHERE username=$1`,
+      [req.body.username],
+      function(err, result) {
+        queryThree(result.rows[0].user_id)
+      }
+    );
+  }
+
+  function queryThree(user_id) {
+    client.query(
+      `INSERT INTO recipes(user_id) VALUES ($1);`,
+      [user_id]
+    );
+  }
 });
+
+
 app.get('/api/v1/recipes/search', (req, res) =>{
   superagent.get(`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`)
   .then (result => res.send(result))
