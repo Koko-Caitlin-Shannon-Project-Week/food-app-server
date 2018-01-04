@@ -26,13 +26,12 @@ app.get('/api/v1/users', (req, res) => {
   .catch(console.error);
 });
 
+app.get('/api/v1/users/id', (req, res) => {
+  client.query(`SELECT user_id FROM users WHERE username=$1 AND password=$2;`, [req.body.uname, req.body.pword])
+  .then(results => res.send(results.rows[0]))
+  .catch(console.error);
+});
 
-// app.post('/api/v1/users', (req, res) => {
-//   let {username, password, id} = req.body;
-//   client.query(`INSERT INTO users(username, password) VALUES($1, $2); INSERT INTO recipes(user_id) VALUES($3);`,
-//   [username, password, id])
-//   .then(results => res.sendStatus(201));
-// });
 app.post('/api/v1/users', (req, res) => {
   client.query(
     `INSERT INTO users(username, password) VALUES($1, $2);`,
@@ -57,7 +56,7 @@ app.post('/api/v1/users', (req, res) => {
       `INSERT INTO recipes(user_id) VALUES ($1);`,
       [user_id],
       function() {
-        res.send('insert success');
+        res.send(user_id);
       }
     );
   }
