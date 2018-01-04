@@ -3,7 +3,7 @@
 const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
-const bodyParser = require('body-parser').urlencoded({extended: true});
+const bodyParser = require('body-parser')
 const superagent = require('superagent');
 const APP_KEY = process.env.APP_KEY;
 const APP_ID = process.env.APP_ID;
@@ -13,6 +13,8 @@ const PORT = process.env.PORT;
 const CLIENT_URL = process.env.CLIENT_URL;
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
@@ -25,7 +27,7 @@ app.get('/api/v1/users', (req, res) => {
 });
 
 
-app.post('/api/v1/users', bodyParser, (req, res) => {
+app.post('/api/v1/users', (req, res) => {
   let {username, password} = req.body;
   client.query(`INSERT INTO users(username, password) VALUES($1, $2)`,
   [username, password])
@@ -46,11 +48,11 @@ app.get('/api/v1/recipes/:id', (req,res) => {
   .catch (console.error);
 });
 
-app.put('/api/v1/recipes/:id/:day', bodyParser, (req, res) => {
-  console.log('hit here')
-  //console.log(req)
+app.put('/api/v1/recipes/:id/:day', (req, res) => {
+  console.log('request body', req.body)
   let {json} = req.body;
-  client.query(`UPDATE recipes SET ${req.params.day} = ($1) WHERE user_id = ${req.params.id};`, [json])
+  console.log('json', json)
+  client.query(`UPDATE recipes SET ${req.params.day} = ($1) WHERE user_id = ${req.params.id};`, [JSON.stringify(json)])
   .then(data => res.send(data))
 });
 
