@@ -46,7 +46,7 @@ app.get('/api/v1/recipes/:id', (req,res) => {
   .catch (console.error);
 });
 
-app.put('api/v1/recipes/:id', (req, res) => {
+app.put('/api/v1/recipes/:id', (req, res) => {
   console.log('hit here');
   console.log(req.query);
   let {json} = req.body;
