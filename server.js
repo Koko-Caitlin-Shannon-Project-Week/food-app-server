@@ -48,8 +48,8 @@ app.get('/api/v1/recipes/:id', (req,res) => {
 
 app.put('/api/v1/recipes/:id/:day', (req, res) => {
   console.log('hit here')
-  console.log(req.body);
-  let {json} = req.body;
+  console.log(req);
+  let {json} = req.data;
   client.query(`UPDATE recipes SET ${req.params.day} = ($1) WHERE user_id = ${req.params.id};`,
 [json])
 });
