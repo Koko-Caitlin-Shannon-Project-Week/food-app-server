@@ -46,11 +46,10 @@ app.get('/api/v1/recipes/:id', (req,res) => {
   .catch (console.error);
 });
 
-app.put('/api/v1/recipes/:id', (req, res) => {
-  console.log('hit here');
-  console.log(req.headers.query);
+app.put('/api/v1/recipes/:id/:day', (req, res) => {
+  console.log('hit here')
   let {json} = req.body;
-  client.query(`UPDATE recipes SET ${req.query.day} = ($1) WHERE user_id = ${req.query.id};`,
+  client.query(`UPDATE recipes SET ${req.params.day} = ($1) WHERE user_id = ${req.params.id};`,
 [json])
 });
 
