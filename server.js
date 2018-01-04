@@ -54,8 +54,8 @@ app.post('/api/v1/users', (req, res) => {
 
   function queryThree(user_id) {
     client.query(
-      `INSERT INTO recipes(user_id, monday, tuesday, wednesday, thursday, friday, saturday, sunday) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`,
-      [user_id, '', '', '', '', '', '', ''],
+      `INSERT INTO recipes(user_id) VALUES ($1);`,
+      [user_id],
       function() {
         res.send(user_id);
       }
