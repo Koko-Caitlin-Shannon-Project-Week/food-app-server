@@ -50,8 +50,8 @@ app.put('/api/v1/recipes/:id/:day', bodyParser, (req, res) => {
   console.log('hit here')
   //console.log(req)
   let {json} = req.body;
-  client.query(`UPDATE recipes SET ${req.params.day} = ($1) WHERE user_id = ${req.params.id};`,
-[json])
+  client.query(`UPDATE recipes SET ${req.params.day} = ($1) WHERE user_id = ${req.params.id};`, [json])
+  .then(data => res.send(data))
 });
 
 
