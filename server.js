@@ -56,5 +56,5 @@ app.put('/api/v1/recipes/:id/:day', (req, res) => {
 
 
 
-//app.get('*', (req, res) => res.redirect(CLIENT_URL));
+app.get('*', (req, res) => res.redirect(CLIENT_URL));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
