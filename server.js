@@ -27,8 +27,9 @@ app.get('/api/v1/users', (req, res) => {
 });
 
 app.get('/api/v1/users/id', (req, res) => {
-  client.query(`SELECT user_id FROM users WHERE username=$1 AND password=$2;`, [req.body.uname, req.body.pword])
-  .then(results => res.send(results.rows[0]))
+  client.query(`SELECT user_id FROM users WHERE username=$1 AND password=$2;`,
+    [req.body.uname, req.body.pword])
+  .then(results => res.send(req.body.uname, req.body.pword))
   .catch(console.error);
 });
 
