@@ -29,7 +29,7 @@ app.get('/api/v1/users', (req, res) => {
 app.get('/api/v1/users/id/:uname/:pword', (req, res) => {
   console.log(req.params.uname, req.params.pword);
   client.query(`SELECT user_id FROM users WHERE username='${req.params.uname}' AND password='${req.params.pword}';`)
-  .then(results => res.send(results.rows[0].user_id))
+  .then(results => res.send(results.rows[0]))
   .catch(console.error);
 });
 
