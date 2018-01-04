@@ -46,7 +46,7 @@ app.get('/api/v1/recipes/:id', (req,res) => {
   .catch (console.error);
 });
 
-app.put('/api/v1/recipes/:id/:day', (req, res) => {
+app.put('/api/v1/recipes/:id/:day', bodyParser, (req, res) => {
   console.log('hit here')
   //console.log(req)
   let {json} = req.body;
