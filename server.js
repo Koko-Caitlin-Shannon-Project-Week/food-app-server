@@ -26,12 +26,6 @@ app.get('/api/v1/users', (req, res) => {
   .catch(console.error);
 });
 
-app.get('/api/v1/users/id/:uname/:pword', (req, res) => {
-  console.log(req.params.uname, req.params.pword);
-  client.query(`SELECT user_id FROM users WHERE username='${req.params.uname}' AND password='${req.params.pword}';`)
-  .then(results => res.send(results.rows))
-  .catch(console.error);
-});
 
 app.post('/api/v1/users', (req, res) => {
   client.query(
@@ -44,7 +38,7 @@ app.post('/api/v1/users', (req, res) => {
 
   function queryTwo() {
     client.query(
-      `SELECT user_id FROM users WHERE username=$1`,
+      `SELECT user_id FROM users WHERE username=$1;`,
       [req.body.username],
       function(err, result) {
         queryThree(result.rows[0].user_id)
@@ -63,6 +57,12 @@ app.post('/api/v1/users', (req, res) => {
   }
 });
 
+app.get('/api/v1/users/id/:uname/:pword', (req, res) => {
+  console.log(req.params.uname, req.params.pword);
+  client.query(`SELECT user_id FROM users WHERE username='${req.params.uname}' AND password='${req.params.pword}';`)
+  .then(results => res.send(results.rows[0]))
+  .catch(console.error);
+});
 
 app.get('/api/v1/recipes/search', (req, res) =>{
   superagent.get(`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`)
