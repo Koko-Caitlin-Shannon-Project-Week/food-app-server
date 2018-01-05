@@ -44,7 +44,7 @@ app.post('/api/v1/users', (req, res) => {
 
   function queryTwo() {
     client.query(
-      `SELECT user_id FROM users WHERE username=$1`,
+      `SELECT user_id FROM users WHERE username=$1;`,
       [req.body.username],
       function(err, result) {
         queryThree(result.rows[0].user_id)
