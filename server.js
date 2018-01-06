@@ -21,7 +21,7 @@ client.connect();
 client.on('error', err => console.error(err));
 
 app.get('/api/v1/users', (req, res) => {
-  client.query(`SELECT * FROM users;`)
+  client.query(`SELECT * FROM user;`)
   .then(results => res.send(results.rows))
   .catch(console.error);
 });
